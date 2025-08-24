@@ -17,6 +17,16 @@ const vocabulary = [
 
 const container = document.getElementById("cards");
 
+// Lấy danh sách giọng
+let voices = [];
+
+function loadVoices() {
+    voices = speechSynthesis.getVoices();
+}
+
+// iOS/Chrome thường cần lắng nghe sự kiện voiceschanged
+speechSynthesis.onvoiceschanged = loadVoices;
+
 // Render thẻ từ vựng
 vocabulary.forEach(word => {
     const card = document.createElement("div");
@@ -35,13 +45,20 @@ vocabulary.forEach(word => {
     container.appendChild(card);
 });
 
-// Đọc từ rồi đọc câu ví dụ liền mạch
+// Đọc từ + câu ví dụ liền mạch với giọng US
 function speakWordAndExample(word, example) {
-    speechSynthesis.cancel(); // Hủy mọi speech trước đó
+    speechSynthesis.cancel(); // Hủy các speech trước đó
 
-    // Nối từ + câu bằng dấu phẩy để đọc liền mạch
     const utter = new SpeechSynthesisUtterance(`${word}. ${example}`);
     utter.lang = 'en-US';
-    utter.rate = 1;
+    utter.rate = 0.9;  // hơi chậm để nghe rõ
+    utter.pitch = 1.1; // tự nhiên hơn
+
+    // Chọn giọng US nếu có
+    if (voices.length > 0) {
+        const voiceUS = voices.find(v => v.lang === 'en-US') || voices[0];
+        utter.voice = voiceUS;
+    }
+
     speechSynthesis.speak(utter);
 }
