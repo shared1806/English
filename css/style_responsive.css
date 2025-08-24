@@ -1,0 +1,52 @@
+/* Responsive adjustments */
+@media screen and (max-width: 1024px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+        /* tablet: 4 thẻ 1 dòng */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+        /* nhỏ hơn tablet: 3 thẻ 1 dòng */
+    }
+
+    .english {
+        font-size: 16px;
+    }
+
+    .example {
+        font-size: 13px;
+    }
+
+    .icon {
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+        /* mobile: 2 thẻ 1 dòng */
+        gap: 10px;
+        padding: 0 5px;
+    }
+
+    .english {
+        font-size: 14px;
+    }
+
+    .example {
+        font-size: 12px;
+    }
+
+    .icon {
+        font-size: 30px;
+    }
+
+    .footer {
+        font-size: 12px;
+        padding: 8px 0;
+    }
+}
